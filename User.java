@@ -3,13 +3,14 @@ import org.mindrot.jbcrypt.BCrypt;
 public class User{
   
   //max num of passwords
-  private static final int MAX_PASS_NUM = 3;
+  public static final int MAX_PASS_NUM = 3;
   
   //user's info
   private String username;
   private String[] pwHashArray;
   private int numPw;
-  private String salt;
+  //salt removed as BCrypt stores salt in hash
+  //private String salt;
   
   
   //default constructor
@@ -18,7 +19,6 @@ public class User{
     pwHashArray = new String[MAX_PASS_NUM];
     numPw = 0;
     
-    salt = BCrypt.gensalt();
   }
   
   
@@ -28,7 +28,6 @@ public class User{
     pwHashArray = new String[MAX_PASS_NUM];
     numPw = 0;
     
-    salt = BCrypt.gensalt();
   }
   
   
@@ -44,7 +43,7 @@ public class User{
     if (numPw >= MAX_PASS_NUM) {
       System.out.println("Password length is at max size");
     } else {
-      String hashedPw = BCrypt.hashpw(addPw, salt);
+      String hashedPw = BCrypt.hashpw(addPw, BCrypt.gensalt());
       pwHashArray[numPw] = hashedPw;
       numPw++;
     }
@@ -81,7 +80,6 @@ public class User{
   
   //checks whether the individual password is in the user's password set
   private int checkIndiv(String unVerPw) {
-    String unVerHashedPw = BCrypt.hashpw(unVerPw, new String(salt));
     for (int i = 0; i < numPw; i++) {
       if (BCrypt.checkpw(unVerPw, pwHashArray[i])) {
         return i;
