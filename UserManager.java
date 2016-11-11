@@ -11,14 +11,10 @@ public class UserManager {
   }
   
   //create user and add to map of users
-  public void createUser() {
-    Scanner userIn = new Scanner(System.in);
-    System.out.print("enter a username: ");
-    String username = userIn.next();
+  public void createUser(String username, String password) {
     User user = new User(username);
   for (int i = 0; i < User.MAX_PASS_NUM; i++) {
-    System.out.print("enter password: ");
-    user.addPw(userIn.next());
+    user.addPw(password);
   }
     usersDB.put(username, user);
   }

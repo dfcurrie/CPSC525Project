@@ -2,25 +2,31 @@ import java.util.Scanner;
 
 public class Main {
   public static void main(String[] args) {
-    Scanner userIn = new Scanner(System.in);
+  //  Scanner userIn = new Scanner(System.in);
     
     //Holds all the users, will probably need to be substituted with something else eventually
     UserManager uMan = new UserManager();
-    Interface userInterface = new Interface();
+    //Interface userInterface = new Interface();
+    UserInterface gui = new UserInterface();
+    //gui.displayMain();
+    
+    gui.addUserManager(uMan);
+    
 
-    String input = "";
+   // String input = "";
     
     //the interaction loop
-    while (!input.equals("Q")) {
-      userInterface.displayMainOptions();
-      input = userIn.next();
+  //  while (!input.equals("Q")) {
+  //   userInterface.displayMainOptions();
+  //    input = userIn.next();
       //U for new user
-      if (input.equals("U")) {
-        uMan.createUser();
+  //    if (input.equals("U")) {
+  //      uMan.createUser();
       //V for verify user
-      } else if (input.equals("V")) {
-        uMan.verifyUser();
-      }
-    }
+  //    } else if (input.equals("V")) {
+  //      uMan.verifyUser();
+  //    }
+  //  }
+    
   }
 }

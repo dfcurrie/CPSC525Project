@@ -3,7 +3,7 @@ import org.mindrot.jbcrypt.BCrypt;
 public class User{
   
   //max num of passwords
-  public static final int MAX_PASS_NUM = 3;
+  public static final int MAX_PASS_NUM = 1;
   
   //user's info
   private String username;
