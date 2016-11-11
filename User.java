@@ -51,6 +51,7 @@ public class User{
   
   //checks if the password set enters equals the user's password set
   public boolean checkPw(String[] unVerPwArray) {
+    System.out.println("checking passwords...");
     
     //rejects if set not long enough
     if (unVerPwArray.length < MAX_PASS_NUM) {
