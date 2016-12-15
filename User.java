@@ -39,7 +39,7 @@ public class User{
       System.out.println("Password length is at max size");
     } else {
       String hashedPw = BCrypt.hashpw(addPw, BCrypt.gensalt());
-      pwHashArray[numPw] = hashedPw;
+      pwHashArray[numPw] = addPw;
       numPw++;
     }
   }
@@ -77,11 +77,15 @@ public class User{
   //checks whether the individual password is in the user's password set
   private int checkIndiv(String unVerPw) {
     for (int i = 0; i < numPw; i++) {
-      if (BCrypt.checkpw(unVerPw, pwHashArray[i])) {
+      if (unVerPw.equals(pwHashArray[i])) {
         return i;
       }
     }    
     return -1;
+  }
+  
+  public String[] getPasswords() {
+	  return pwHashArray;
   }
   
 }

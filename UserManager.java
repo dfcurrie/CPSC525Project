@@ -40,5 +40,17 @@ public class UserManager {
       return false;
     }
     
-  }
+}	
+    
+    public String[] getUserPasswords(String username) {
+    //checks if user exists
+    if (!usersDB.containsKey(username)) {
+      System.out.println("user " + username + " doesn't exist");
+      return new String[]{""};
+    }
+    User user = usersDB.get(username);
+	
+	return user.getPasswords();
+	}
+  
 }
