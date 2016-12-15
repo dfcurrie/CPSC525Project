@@ -13,7 +13,7 @@ public class UserManager {
   //create user and add to map of users
   public void createUser(String username, String[] passwords) {
     User user = new User(username);
-    for (int i = 0; i < User.MAX_PASS_NUM; i++) {
+    for (int i = 0; i < Constants.MAX_PASS_NUM; i++) {
       user.addPw(passwords[i]);
     }
     System.out.println("successfully created user: " + username);

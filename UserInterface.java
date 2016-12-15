@@ -39,6 +39,7 @@ public class UserInterface {
     displayPanel(mainPanel);
   }
   
+  
   //the panel that displays the main page verify or create user
   private void makeMainPanel() {
     mainPanel = new JPanel();
@@ -71,13 +72,20 @@ public class UserInterface {
     createPanel.setLayout(new GridBagLayout());
    
     //create fields for collecting info
-    final JTextField usernameField = new JTextField("username", 10);
-    final JPasswordField passwordField = new JPasswordField("password", 10);
+    final JTextField usernameField = new JTextField("username", 5);
+    final JPasswordField[] passwordFields = new JPasswordField[Constants.MAX_PASS_NUM];
+    for (int i = 0; i < Constants.MAX_PASS_NUM; i++) {
+      passwordFields[i] = new JPasswordField("pass" + (i+1),5);
+    }
     //create button to collect info and pass info onto UserManager for creating user
     JButton submitButton = new JButton("Submit");
     submitButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        uMan.createUser(usernameField.getText(), new String[]{new String(passwordField.getPassword())});
+        String[] passwords = new String[Constants.MAX_PASS_NUM];
+        for (int i = 0; i < Constants.MAX_PASS_NUM; i++) {
+          passwords[i] = new String(passwordFields[i].getPassword());
+        }
+        uMan.createUser(usernameField.getText(), passwords);
         displayPanel(mainPanel);
       }
     } );
@@ -91,7 +99,9 @@ public class UserInterface {
     
     //add fields and buttons to panel
     createPanel.add(usernameField);
-    createPanel.add(passwordField);
+    for (int i = 0; i < Constants.MAX_PASS_NUM; i++) {
+      createPanel.add(passwordFields[i]);
+    }
     createPanel.add(submitButton);
     createPanel.add(homeButton);
   }
@@ -104,13 +114,20 @@ public class UserInterface {
     //create fields for collecting info
     JLabel userLabel = new JLabel("username:");
     final JTextField usernameField = new JTextField(5);
-    JLabel passwordLabel = new JLabel("password:");
-    final JPasswordField passwordField = new JPasswordField(5);
+    JLabel passwordLabel = new JLabel("passwords:");
+    final JPasswordField[] passwordFields = new JPasswordField[Constants.MAX_PASS_NUM];
+    for (int i = 0; i < Constants.MAX_PASS_NUM; i++) {
+      passwordFields[i] = new JPasswordField(5);
+    }
     //create button to collect info and pass info onto UserManager for verification
     JButton verifyButton = new JButton("Verify");
     verifyButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        boolean result = uMan.verifyUser(usernameField.getText(), new String[]{new String(passwordField.getPassword())});
+        String[] passwords = new String[Constants.MAX_PASS_NUM]; 
+        for (int i = 0; i < Constants.MAX_PASS_NUM; i++) {
+          passwords[i] = new String(passwordFields[i].getPassword());
+        }
+        boolean result = uMan.verifyUser(usernameField.getText(), passwords);
         if (result == true) {
           displayPanel(mainPanel);
         } 
@@ -128,10 +145,13 @@ public class UserInterface {
     verifyPanel.add(userLabel);
     verifyPanel.add(usernameField);
     verifyPanel.add(passwordLabel);
-    verifyPanel.add(passwordField);
+    for (int i = 0; i < Constants.MAX_PASS_NUM; i++) {
+      verifyPanel.add(passwordFields[i]);
+    }
     verifyPanel.add(verifyButton);
     verifyPanel.add(homeButton);
   }
+  
   
   //generic method to switch the displayed panel to provided panel
   private void displayPanel(JPanel display) {
