@@ -18,6 +18,10 @@ public class UserInterface {
   //the usermanager so the gui can tell it to do commands when buttons are pressed
   private UserManager uMan;
   
+  //holds name of selected images when creating password or verifying
+//  private String[] passwordsToCheck = new String[Constants.MAX_PASS_NUM];
+//  private int p = 0;
+  
   //constructor
   public UserInterface() {
     //create the frame
@@ -77,6 +81,7 @@ public class UserInterface {
     for (int i = 0; i < Constants.MAX_PASS_NUM; i++) {
       passwordFields[i] = new JPasswordField("pass" + (i+1),5);
     }
+  
     //create button to collect info and pass info onto UserManager for creating user
     JButton submitButton = new JButton("Submit");
     submitButton.addActionListener(new ActionListener() {
@@ -148,10 +153,28 @@ public class UserInterface {
     for (int i = 0; i < Constants.MAX_PASS_NUM; i++) {
       verifyPanel.add(passwordFields[i]);
     }
+  //  verifyPanel.add(makeClickImage("pass1"));
+  //  verifyPanel.add(makeClickImage("pass2"));
+  //  verifyPanel.add(makeClickImage("incorrect"));
+  
     verifyPanel.add(verifyButton);
     verifyPanel.add(homeButton);
   }
   
+/*  
+  //makes clickable image
+  private JLabel makeClickImage(final String imageName) {
+    ImageIcon image = new ImageIcon("images/" + imageName + ".png");
+    JLabel imgLabel = new JLabel(image);
+    imgLabel.addMouseListener(new MouseAdapter(){
+      public void mousePressed(MouseEvent e) {
+        passwordsToCheck[p] = imageName;
+        p++;
+      }
+    });
+    return imgLabel;
+  }
+ */ 
   
   //generic method to switch the displayed panel to provided panel
   private void displayPanel(JPanel display) {
